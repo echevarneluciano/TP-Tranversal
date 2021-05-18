@@ -17,14 +17,12 @@ public class Materia {
 
     public Materia() {
     }
-
     public Materia(int id_materia, String nombre, int anio, Boolean estado) {
         this.id_materia = id_materia;
         this.nombre = nombre;
         this.anio = anio;
         this.estado = estado;
     }
-
     public Materia(String nombre, int anio, Boolean estado) {
         this.nombre = nombre;
         this.anio = anio;
@@ -34,31 +32,26 @@ public class Materia {
     public int getId_materia() {
         return id_materia;
     }
-
-    public void setId_materia(int id_materia) {
-        this.id_materia = id_materia;
-    }
-
     public String getNombre() {
         return nombre;
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public int getAnio() {
         return anio;
     }
-
+    
+    public Boolean isEstado() {
+        return estado;
+    }
+    
+    public void setId_materia(int id_materia) {
+        this.id_materia = id_materia;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     public void setAnio(int anio) {
         this.anio = anio;
     }
-
-    public Boolean getEstado() {
-        return estado;
-    }
-
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }

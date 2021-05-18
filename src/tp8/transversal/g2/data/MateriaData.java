@@ -12,17 +12,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import tp8.transversal.g2.clases.Conexion;
-import tp8.transversal.g2.clases.Materia;
+import tp8.transversal.g2.clases.*;
 
 /**
  *
  * @author luciano.echevarne
  */
 public class MateriaData {
+    
     private Connection con;
     
     public MateriaData(Conexion conn){
@@ -32,13 +30,14 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null,"error de conexion");
         }
     }
-    public void ingresoMateria(Materia ma){
+    
+    public void ingresarMateria(Materia ma){
         String sql="INSERT INTO materia (nombre,anio,activo) VALUES (?,?,?)";       
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ma.getNombre());
             ps.setInt(2, ma.getAnio());
-            ps.setBoolean(3, ma.getEstado());
+            ps.setBoolean(3, ma.isEstado());
             ps.executeUpdate();
             ResultSet rs=ps.getGeneratedKeys();
             if(rs.next()){
@@ -46,19 +45,20 @@ public class MateriaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"error de conexion");
+            JOptionPane.showMessageDialog(null,"Error de conexion.");
         }
     }
-    public void desactivarMateria (int id){
-        String sql="UPDATE `materia` SET `activo`=false WHERE `idMateria`=?";
+    public void modificarEstado (int id){
+        String sql="UPDATE `materia` SET `activo`=? WHERE `idMateria`=?";
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, id);
+            Materia m = this.buscarMateria(id);
+            ps.setBoolean(1,!m.isEstado());
+            ps.setInt(2, id);
             ps.executeUpdate();
-            ps.close();
-            
+            ps.close();   
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"error de conexion");
+            JOptionPane.showMessageDialog(null,"Error de conexion.");
         }
     }
     public void actualizarMateria (Materia ma){
@@ -70,11 +70,11 @@ public class MateriaData {
             ps.setInt(3,ma.getId_materia());
             ps.executeUpdate();
             ps.close();
-            
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"error de conexion");
+            JOptionPane.showMessageDialog(null,"Error de conexion.");
         }
     }
+    
     public Materia buscarMateria(int id){
         Materia mat=new Materia();
         String sql="SELECT * FROM `materia` WHERE `idMateria`=?";
@@ -89,14 +89,14 @@ public class MateriaData {
                 mat.setAnio(rs.getInt("anio"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"error de conexion");
+            JOptionPane.showMessageDialog(null,"Error de conexion.");
         }
         return mat;
     }
     public List<Materia> obtenerMaterias(){
         Materia mat;
         ArrayList<Materia> materias=new ArrayList<>();
-        String sql="SELECT * FROM `materia`";
+        String sql="SELECT * FROM materia";
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs= ps.executeQuery();
@@ -109,7 +109,7 @@ public class MateriaData {
                 materias.add(mat);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"error de conexion");
+            JOptionPane.showMessageDialog(null,"Error de conexion.");
         }
         return materias;
     }

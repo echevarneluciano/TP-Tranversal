@@ -5,16 +5,10 @@
  */
 package tp8.transversal.g2;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import tp8.transversal.g2.clases.Alumno;
-import tp8.transversal.g2.clases.Conexion;
-import tp8.transversal.g2.clases.Materia;
-import tp8.transversal.g2.data.AlumnoData;
-import tp8.transversal.g2.data.MateriaData;
+import tp8.transversal.g2.clases.*;
+import tp8.transversal.g2.data.*;
 
 /**
  *
@@ -40,7 +34,7 @@ public class TransversalTp8G2 {
 //        aD.ingresoAlumno(aL);
         Materia ma=new Materia("fisica",2, true);
         MateriaData maDat=new MateriaData(con);
-        maDat.ingresoMateria(ma);
+        maDat.ingresarMateria(ma);
         System.out.println(ma.getId_materia());
         List<Materia> lista=maDat.obtenerMaterias();
         for(Materia m:lista){
