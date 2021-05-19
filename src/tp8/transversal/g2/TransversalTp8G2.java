@@ -31,13 +31,19 @@ public class TransversalTp8G2 {
         AlumnoData ad=new AlumnoData(con);
         MateriaData md=new MateriaData(con);
         CursadaData cd=new CursadaData(con);
-        Alumno al=ad.buscarAlumno(17);
-        Materia ma=md.buscarMateria(16);
-        Cursada cu=new Cursada(al,ma,5);
-        cd.guardarCursada(cu);
-        
-        
-        
+//        Alumno al2=ad.buscarAlumno(17);
+//        Materia ma2=md.buscarMateria(3);
+//        Cursada cu2=new Cursada(al2,ma2,9);
+//        cd.guardarCursada(cu2);
+//        cd.borrarCursadaDeUnaMateria(17, 3);
+//         cd.actualizarNotaCursada(17, 3, -4);
+//         Alumno pr=cd.buscarAlumno(17);
+//         System.out.println(pr.getApellido());
+//          Materia mpr=cd.buscarMateria(16);
+//          System.out.println(mpr.getNombre());
+           
+
+
 //        LocalDate dat=LocalDate.of(1987, 6, 27);
 //        Alumno aL=new Alumno ("Luciano","Echevarne",dat,152383,true);
 //        AlumnoData aD=new AlumnoData (con);
