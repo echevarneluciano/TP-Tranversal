@@ -92,7 +92,7 @@ public class CursadaData {
                 a.setId_alumno(rs.getInt("idAlumno"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error de conexion metodo buscar alumno");
         }
         return a;
     }

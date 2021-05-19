@@ -28,7 +28,7 @@ public class AlumnoData {
         try {
             this.con =  conn.getConexion();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error de conexion en alumnoData.");
         }
     }
     
@@ -48,7 +48,7 @@ public class AlumnoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error de conexion en metodo ingresarAlumno.");
         }
     }
     public void actualizarAlumno(Alumno al){
