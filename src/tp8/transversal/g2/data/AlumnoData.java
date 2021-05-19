@@ -52,7 +52,7 @@ public class AlumnoData {
         }
     }
     public void actualizarAlumno(Alumno al){
-        String sql="UPDATE alumno SET legajo =?,activo=?,apellido=?,nombre=?,fechaNac=?";       
+        String sql="UPDATE alumno SET legajo =?,activo=?,apellido=?,nombre=?,fechaNac=? where idAlumno=?";       
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, al.getLegajo());
@@ -60,6 +60,7 @@ public class AlumnoData {
             ps.setString(3, al.getApellido());
             ps.setString(4, al.getNombre());
             ps.setDate(5, Date.valueOf(al.getFechaNac()));
+            ps.setInt(6, al.getId_alumno());
             ps.executeUpdate();
             ResultSet rs=ps.getGeneratedKeys();
             if(rs.next()){
@@ -80,7 +81,7 @@ public class AlumnoData {
             ps.executeUpdate();
             ps.close();   
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error de conexion en modificarEstado");
         }
     }
    
@@ -107,7 +108,7 @@ public class AlumnoData {
     public List<Alumno> obtenerAlumnos(){
         Alumno a;
         ArrayList<Alumno> alumnos=new ArrayList<>();        
-        String sql="SELECT * FROM `materia`";
+        String sql="SELECT * FROM `alumno`";
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs= ps.executeQuery();

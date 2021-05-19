@@ -123,12 +123,12 @@ public class CursadaData {
             ResultSet rs= ps.executeQuery();
             while(rs.next()){
                 c = new Cursada();
-                Alumno a = buscarAlumno(rs.getInt("id_Alumno"));
-                Materia m = buscarMateria(rs.getInt("id_Materia"));
+                Alumno a = buscarAlumno(rs.getInt("idAlumno"));
+                Materia m = buscarMateria(rs.getInt("idMateria"));
                 c.setAlumno(a);
                 c.setMateria(m);
                 c.setNota(rs.getInt("nota"));
-                c.setId_cursada(rs.getInt("id_cursada"));
+                c.setId_cursada(rs.getInt("idCursada"));
                 lc.add(c);
             }
         } catch (SQLException ex) {
@@ -140,19 +140,19 @@ public class CursadaData {
     public List <Cursada> obtenerCursadasxAlumno(int id){
         ArrayList <Cursada> lc = new ArrayList<>();
         Cursada c;
-        String sql="SELECT * FROM cursada WHERE id_Alumno=?";
+        String sql="SELECT * FROM cursada WHERE idAlumno=?";
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,id);
             ResultSet rs= ps.executeQuery();
             while(rs.next()){
                 c = new Cursada();
-                Alumno a = buscarAlumno(rs.getInt("id_Alumno"));
-                Materia m = buscarMateria(rs.getInt("id_Materia"));
+                Alumno a = buscarAlumno(rs.getInt("idAlumno"));
+                Materia m = buscarMateria(rs.getInt("idMateria"));
                 c.setAlumno(a);
                 c.setMateria(m);
                 c.setNota(rs.getInt("nota"));
-                c.setId_cursada(rs.getInt("id_cursada"));
+                c.setId_cursada(rs.getInt("idCursada"));
                 lc.add(c);
             }
         } catch (SQLException ex) {
@@ -170,48 +170,42 @@ public class CursadaData {
     public List <Materia> obtenerMateriasCursadas(int id){
         ArrayList <Materia> lm = new ArrayList<>();
         Materia m;
-        String sql= ("SELECT m.id_Materia, m.nombre, m.anio, m.estado\n" +
-                    "FROM cursada AS c, materia as m\n" +
-                    "WHERE c.id_Materia = c.id_Materia\n" +
-                    "AND id_Alumno=?;");
+        String sql= ("SELECT m.idMateria, m.nombre, m.anio, m.activo FROM cursada AS c, materia as m WHERE c.idMateria = m.idMateria AND idAlumno=?");
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
             ResultSet rs= ps.executeQuery();
             while(rs.next()){
                 m = new Materia();
-                m.setId_materia(rs.getInt("id_Materia"));
+                m.setId_materia(rs.getInt("idMateria"));
                 m.setNombre(rs.getString("nombre"));
                 m.setAnio(rs.getInt("anio"));
-                m.setEstado(rs.getBoolean("estado"));
+                m.setEstado(rs.getBoolean("activo"));
                 lm.add(m);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error de conexion en metodo obtenerMateriasCursadas.");
         }
         return lm;
     }
     public List <Materia> obtenerMateriasNOCursadas(int id){
         ArrayList <Materia> lm = new ArrayList<>();
         Materia m;
-        String sql= ("SELECT *\n"+
-                    "FROM materia\n"+ 
-                    "WHERE id_Materias NOT IN (SELECT cursada\n"+
-                                                "WHERE id_alumno=?);");
+        String sql= ("SELECT * FROM materia WHERE idMateria NOT IN (SELECT idMateria from cursada WHERE idAlumno=?)");
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
             ResultSet rs= ps.executeQuery();
             while(rs.next()){
                 m = new Materia();
-                m.setId_materia(rs.getInt("id_Materia"));
+                m.setId_materia(rs.getInt("idMateria"));
                 m.setNombre(rs.getString("nombre"));
                 m.setAnio(rs.getInt("anio"));
-                m.setEstado(rs.getBoolean("estado"));
+                m.setEstado(rs.getBoolean("activo"));
                 lm.add(m);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error de conexion en metodo obtenerMateriasNoCursadas");
         }
         return lm;
     }

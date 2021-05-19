@@ -22,9 +22,10 @@ public class Alumno {
 
     public Alumno() {
     }
-    public Alumno(int id_alumno, String nombre, LocalDate fechaNac, int legajo, boolean estado) {
+    public Alumno(int id_alumno, String nombre,String apellido, LocalDate fechaNac, int legajo, boolean estado) {
         this.idAlumno = id_alumno;
         this.nombre = nombre;
+        this.apellido= apellido;
         this.fechaNac = fechaNac;
         this.legajo = legajo;
         this.activo = estado;

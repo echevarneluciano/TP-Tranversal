@@ -28,10 +28,16 @@ public class TransversalTp8G2 {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null,"error de driver");
         }
+                LocalDate dat=LocalDate.of(1966, 6, 27);
         AlumnoData ad=new AlumnoData(con);
         MateriaData md=new MateriaData(con);
         CursadaData cd=new CursadaData(con);
-//        Alumno al2=ad.buscarAlumno(17);
+//        Materia ma=new Materia(3,"laboratorio",3,true);
+//        md.obtenerMaterias();
+        
+//        ad.obtenerAlumnos();
+//        Alumno al2=new Alumno(1,"German","Polenta",dat,24444,true);//1152383 1 Echeva Luciano 1987-06-27 String nombre, String apellido, LocalDate fechaNac, int legajo, boolean estado
+//        ad.actualizarAlumno(al2);
 //        Materia ma2=md.buscarMateria(3);
 //        Cursada cu2=new Cursada(al2,ma2,9);
 //        cd.guardarCursada(cu2);
@@ -41,10 +47,10 @@ public class TransversalTp8G2 {
 //         System.out.println(pr.getApellido());
 //          Materia mpr=cd.buscarMateria(16);
 //          System.out.println(mpr.getNombre());
-           
-
-
-//        LocalDate dat=LocalDate.of(1987, 6, 27);
+//           List<Materia> lm=cd.obtenerMateriasNOCursadas(17);
+//          for(Materia m:lm){
+//              System.out.println(m.getNombre());
+//          }
 //        Alumno aL=new Alumno ("Luciano","Echevarne",dat,152383,true);
 //        AlumnoData aD=new AlumnoData (con);
 //        aD.ingresarAlumno(aL);
