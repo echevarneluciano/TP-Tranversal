@@ -11,10 +11,10 @@ package tp8.transversal.g2.clases;
  */
 public class Cursada {
     
-    public int id_cursada;
-    public Alumno alumno;
-    public Materia materia;
-    public int nota;
+    private int id_cursada;
+    private Alumno alumno;
+    private Materia materia;
+    private int nota;
 
     public Cursada() {
     }
