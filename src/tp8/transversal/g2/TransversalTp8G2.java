@@ -32,6 +32,7 @@ public class TransversalTp8G2 {
         AlumnoData ad=new AlumnoData(con);
         MateriaData md=new MateriaData(con);
         CursadaData cd=new CursadaData(con);
+        cd.obtenerCursadas();
 //        Materia ma=new Materia(3,"laboratorio",3,true);
 //        md.obtenerMaterias();
         
