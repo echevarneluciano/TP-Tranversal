@@ -62,7 +62,6 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
 
         jbGuardar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbGuardar.setText("Guardar");
-        jbGuardar.setEnabled(false);
 
         jbBuscar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbBuscar.setText("Buscar");
