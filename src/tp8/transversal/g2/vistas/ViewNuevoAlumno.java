@@ -6,6 +6,7 @@
 package tp8.transversal.g2.vistas;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Iterator;
@@ -56,6 +57,8 @@ private CursadaData cd;
         jbLimpiar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -115,6 +118,10 @@ private CursadaData cd;
             }
         });
 
+        jLabel5.setText("* seleccione fecha");
+
+        jLabel6.setText("* Busque para ver disponibilidad");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -148,7 +155,11 @@ private CursadaData cd;
                                 .addComponent(jtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(107, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +171,8 @@ private CursadaData cd;
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbBuscar)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,7 +184,8 @@ private CursadaData cd;
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtFecha)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGuardar)
@@ -187,12 +200,12 @@ private CursadaData cd;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
         );
@@ -213,6 +226,7 @@ private CursadaData cd;
     catch(NumberFormatException ex){
     JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros");
     }
+    if(legajo==0){JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros") ;}else {
     Iterator it=ad.obtenerAlumnos().iterator();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     while(it.hasNext()){
@@ -223,6 +237,7 @@ private CursadaData cd;
         if(ok==false){this.jbLimpiarActionPerformed(evt);jtApellido.setEditable(true);
         jtNombre.setEditable(true);jtLegajo.setText(String.valueOf(legajo));
         JOptionPane.showMessageDialog(this,legajo+" ,esta disponible para usar");jbGuardar.setEnabled(true);}else jbGuardar.setEnabled(false);
+    }
         // TODO add your handling code here:
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -231,6 +246,7 @@ private CursadaData cd;
     jtApellido.setText("");
     jtNombre.setText("");
     jtFecha.setText("");
+    jbGuardar.setEnabled(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
@@ -245,10 +261,16 @@ private CursadaData cd;
     }
     String apellido=jtApellido.getText();
     String nombre=jtNombre.getText();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     Date fecha=jDateChooser1.getDate();
-        System.out.println(fecha);
-    Alumno a1=new Alumno();
+    System.out.println(fecha);
+    if(fecha==null||legajo==0||apellido==null||nombre==null){JOptionPane.showMessageDialog(this,"Rellene todos los campos, apellido, nombre, legajo y fecha");}
+    else{
+    LocalDate fe=fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    System.out.println(fe);
+    Alumno a1=new Alumno(nombre,apellido,fe,legajo,true);
+    ad.ingresarAlumno(a1);
+    jbGuardar.setEnabled(false);this.jbLimpiarActionPerformed(evt);}
+    this.jbLimpiarActionPerformed(evt);
         // TODO add your handling code here:
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -259,6 +281,8 @@ private CursadaData cd;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbGuardar;

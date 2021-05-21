@@ -45,6 +45,7 @@ public class AlumnoData {
             ResultSet rs=ps.getGeneratedKeys();
             if(rs.next()){
             al.setId_alumno(rs.getInt(1));
+            JOptionPane.showMessageDialog(null,"Ingresado con exito");
             }
             ps.close();
         } catch (SQLException ex) {
