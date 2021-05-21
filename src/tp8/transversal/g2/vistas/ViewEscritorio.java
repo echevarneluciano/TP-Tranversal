@@ -5,17 +5,35 @@
  */
 package tp8.transversal.g2.vistas;
 
+import javax.swing.JOptionPane;
+import tp8.transversal.g2.clases.Conexion;
+import tp8.transversal.g2.data.AlumnoData;
+import tp8.transversal.g2.data.CursadaData;
+import tp8.transversal.g2.data.MateriaData;
+
 /**
  *
  * @author Guido Caballero
  */
 public class ViewEscritorio extends javax.swing.JFrame {
-
+private AlumnoData ad;
+private MateriaData md;
+private CursadaData cd;
+private Conexion con;
     /**
      * Creates new form ViewEscritorio
      */
     public ViewEscritorio() {
         initComponents();
+        this.con=null;
+        try {
+            con = new Conexion();
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null,"error de driver");
+        }
+        this.ad=new AlumnoData(con);
+        this.md=new MateriaData(con);
+        this.cd=new CursadaData(con);
     }
 
     /**
@@ -195,7 +213,7 @@ public class ViewEscritorio extends javax.swing.JFrame {
     private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
         jpEscritorio.removeAll();
         jpEscritorio.repaint();
-        ViewInscripcion view = new ViewInscripcion();
+        ViewInscripcion view = new ViewInscripcion(ad,md,cd);
         jpEscritorio.add(view);
         view.setVisible(true);
     }//GEN-LAST:event_jbInscribirActionPerformed

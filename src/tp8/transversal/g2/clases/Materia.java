@@ -55,5 +55,10 @@ public class Materia {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return "nombre= " + nombre + ", anio= " + anio;
+    }
     
 }

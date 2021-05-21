@@ -138,6 +138,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbMateriasActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Materia&gt;"/>
           </AuxValues>
@@ -150,6 +153,9 @@
             <Property name="text" type="java.lang.String" value="Inscribir"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbConfirmarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbSalir">
           <Properties>
@@ -178,6 +184,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Verificar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbVerificarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jlAviso">
           <Properties>

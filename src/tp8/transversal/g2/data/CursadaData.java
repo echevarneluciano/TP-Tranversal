@@ -43,6 +43,7 @@ public class CursadaData {
             ResultSet rs=ps.getGeneratedKeys();
             if(rs.next()){
                 c.setId_cursada(rs.getInt(1));
+                JOptionPane.showMessageDialog(null,"Inscripcion exitosa");
             }
             ps.close();
         } catch (SQLException ex) {

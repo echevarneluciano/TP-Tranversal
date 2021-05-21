@@ -5,20 +5,43 @@
  */
 package tp8.transversal.g2.vistas;
 
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JOptionPane;
 import tp8.transversal.g2.clases.*;
+import tp8.transversal.g2.data.AlumnoData;
+import tp8.transversal.g2.data.CursadaData;
+import tp8.transversal.g2.data.MateriaData;
 
 /**
  *
  * @author Guido Caballero
  */
 public class ViewInscripcion extends javax.swing.JInternalFrame {
-
+private AlumnoData ad;
+private MateriaData md;
+private CursadaData cd;
     /**
      * Creates new form ViewInscripcion
      */
-    public ViewInscripcion() {
+    public ViewInscripcion(AlumnoData ad,MateriaData md,CursadaData cd) {
         initComponents();
         jlAviso.setVisible(false);
+        this.ad=ad;
+        this.md=md;
+        this.cd=cd;
+        Iterator <Alumno> it=ad.obtenerAlumnos().iterator();
+        Iterator <Materia> it2=md.obtenerMaterias().iterator();
+        cbAlumnos.addItem(null);
+        cbMaterias.addItem(null);
+    while(it.hasNext()){
+        Alumno a1=it.next();
+        cbAlumnos.addItem(a1);
+    }
+    while(it2.hasNext()){
+        Materia m1=it2.next();
+        cbMaterias.addItem(m1);
+    }
     }
 
     /**
@@ -52,10 +75,20 @@ public class ViewInscripcion extends javax.swing.JInternalFrame {
         jLabel2.setText("Seleccione una materia ");
 
         cbMaterias.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
+        cbMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMateriasActionPerformed(evt);
+            }
+        });
 
         jbConfirmar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbConfirmar.setText("Inscribir");
         jbConfirmar.setEnabled(false);
+        jbConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConfirmarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbSalir.setText("Salir");
@@ -70,6 +103,11 @@ public class ViewInscripcion extends javax.swing.JInternalFrame {
 
         jbVerificar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbVerificar.setText("Verificar");
+        jbVerificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVerificarActionPerformed(evt);
+            }
+        });
 
         jlAviso.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         jlAviso.setForeground(new java.awt.Color(204, 0, 0));
@@ -140,6 +178,37 @@ public class ViewInscripcion extends javax.swing.JInternalFrame {
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void cbMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMateriasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMateriasActionPerformed
+
+    private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
+    Alumno a1=(Alumno)cbAlumnos.getSelectedItem();
+    Materia m1=(Materia)cbMaterias.getSelectedItem();
+    Cursada c1=new Cursada(a1,m1,0);
+    cd.guardarCursada(c1);
+    jbConfirmar.setEnabled(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbConfirmarActionPerformed
+
+    private void jbVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerificarActionPerformed
+    Alumno a1=(Alumno)cbAlumnos.getSelectedItem();
+    Materia m1=(Materia)cbMaterias.getSelectedItem();
+    boolean ok=false;
+    if(a1!=null&m1!=null){
+    List <Materia> lm=cd.obtenerMateriasCursadas(a1.getId_alumno());
+    for(Materia m:lm){
+        System.out.print(m.getId_materia()+" ");
+        System.out.println(m1.getId_materia());
+    if(m.getId_materia()==m1.getId_materia()){ok=true;}
+    }
+    System.out.println(ok);
+    if(!ok){jbConfirmar.setEnabled(true);}
+    if(ok){JOptionPane.showMessageDialog(this,"No es posible, alumno ya se encuentra inscripto a la materia");jbConfirmar.setEnabled(false);}
+    }
+    // TODO add your handling code here:
+    }//GEN-LAST:event_jbVerificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

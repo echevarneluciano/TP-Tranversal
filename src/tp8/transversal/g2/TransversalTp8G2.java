@@ -6,7 +6,6 @@
 package tp8.transversal.g2;
 
 import java.time.LocalDate;
-import java.util.List;
 import javax.swing.JOptionPane;
 import tp8.transversal.g2.clases.*;
 import tp8.transversal.g2.data.*;
