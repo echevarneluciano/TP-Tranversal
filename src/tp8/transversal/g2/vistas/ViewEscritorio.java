@@ -181,7 +181,7 @@ private Conexion con;
     private void jbNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoAlumnoActionPerformed
         jpEscritorio.removeAll();
         jpEscritorio.repaint();
-        ViewNuevoAlumno view = new ViewNuevoAlumno();
+        ViewNuevoAlumno view = new ViewNuevoAlumno(ad,md,cd);
         jpEscritorio.add(view);
         view.setVisible(true);
     }//GEN-LAST:event_jbNuevoAlumnoActionPerformed

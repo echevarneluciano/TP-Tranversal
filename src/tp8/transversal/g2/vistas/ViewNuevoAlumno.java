@@ -5,17 +5,31 @@
  */
 package tp8.transversal.g2.vistas;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import tp8.transversal.g2.clases.Alumno;
+import tp8.transversal.g2.data.AlumnoData;
+import tp8.transversal.g2.data.CursadaData;
+import tp8.transversal.g2.data.MateriaData;
+
 /**
  *
  * @author Guido Caballero
  */
 public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
-
+private AlumnoData ad;
+private MateriaData md;
+private CursadaData cd;
     /**
      * Creates new form ViewNuevoAlumno
      */
-    public ViewNuevoAlumno() {
+    public ViewNuevoAlumno(AlumnoData ad,MateriaData md,CursadaData cd) {
         initComponents();
+        this.ad=ad;
+        this.md=md;
+        this.cd=cd;
     }
 
     /**
@@ -68,12 +82,28 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
 
         jbGuardar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbGuardar.setText("Guardar");
+        jbGuardar.setEnabled(false);
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jbLimpiar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbLimpiar.setText("Limpiar");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbSalir.setText("Salir");
@@ -163,6 +193,52 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+    int legajo=0;
+    boolean ok=false;
+    try{
+    legajo=Integer.parseInt(jtLegajo.getText());
+    }
+    catch(NumberFormatException ex){
+    JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros");
+    }
+    Iterator it=ad.obtenerAlumnos().iterator();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+    while(it.hasNext()){
+        Alumno a1=(Alumno)it.next();
+        if(legajo==a1.getLegajo()){jtApellido.setText(a1.getApellido());jtNombre.setText(a1.getNombre());jtFecha.setText(a1.getFechaNac().format(formatter));ok=true;}
+    }
+        System.out.println(ok);
+        if(ok==false){this.jbLimpiarActionPerformed(evt);jtApellido.setEditable(true);
+        jtNombre.setEditable(true);jtFecha.setEditable(true);jtLegajo.setText(String.valueOf(legajo));
+        JOptionPane.showMessageDialog(this,legajo+" ,esta disponible para usar");jbGuardar.setEnabled(true);}else jbGuardar.setEnabled(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+    jtLegajo.setText("");
+    jtApellido.setText("");
+    jtNombre.setText("");
+    jtFecha.setText("");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+    int legajo=0;
+    boolean ok=false;
+    try{
+    legajo=Integer.parseInt(jtLegajo.getText());
+    }
+    catch(NumberFormatException ex){
+    JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros");
+    }
+    String apellido=jtApellido.getText();
+    String nombre=jtNombre.getText();
+    //LocalDate fecha=jtFecha.getText();
+    Alumno a1=new Alumno();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -215,6 +215,7 @@ public class ViewVerInscriptos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+       
         // TODO add your handling code here:
     }//GEN-LAST:event_jbBuscarActionPerformed
 
