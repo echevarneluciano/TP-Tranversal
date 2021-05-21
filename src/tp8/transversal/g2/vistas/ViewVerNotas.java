@@ -14,7 +14,7 @@ import tp8.transversal.g2.clases.*;
 public class ViewVerNotas extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form ViewVerNotas
+     * Creates new form ViewVerInscriptos
      */
     public ViewVerNotas() {
         initComponents();

@@ -38,7 +38,7 @@ public class CursadaData {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, c.getAlumno().getId_alumno());
             ps.setInt(2, c.getMateria().getId_materia());
-            ps.setInt(3, c.getNota());
+            ps.setFloat(3, c.getNota());
             ps.executeUpdate();
             ResultSet rs=ps.getGeneratedKeys();
             if(rs.next()){
@@ -62,11 +62,11 @@ public class CursadaData {
             JOptionPane.showMessageDialog(null,"Error de conexion.");
         }
     }
-    public void actualizarNotaCursada(int idA ,int idM, int nota){
+    public void actualizarNotaCursada(int idA ,int idM, float nota){
         String sql="UPDATE cursada SET nota = ? WHERE idAlumno = ? AND idMateria = ?";     
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,nota);
+            ps.setFloat(1, nota);
             ps.setInt(2, idA);
             ps.setInt(3, idM);
             ps.executeUpdate();

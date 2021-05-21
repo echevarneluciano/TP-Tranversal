@@ -34,14 +34,16 @@ private CursadaData cd;
         Iterator <Materia> it2=md.obtenerMaterias().iterator();
         cbAlumnos.addItem(null);
         cbMaterias.addItem(null);
-    while(it.hasNext()){
-        Alumno a1=it.next();
-        cbAlumnos.addItem(a1);
-    }
-    while(it2.hasNext()){
-        Materia m1=it2.next();
-        cbMaterias.addItem(m1);
-    }
+        while(it.hasNext()){
+            Alumno a1=it.next();
+            if(a1.isActivo())
+                cbAlumnos.addItem(a1);
+        }
+        while(it2.hasNext()){
+            Materia m1=it2.next();
+            if(m1.isEstado())
+                cbMaterias.addItem(m1);
+        }
     }
 
     /**
@@ -120,25 +122,26 @@ private CursadaData cd;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbMaterias, 0, 269, Short.MAX_VALUE)
-                            .addComponent(cbAlumnos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlAviso)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbVerificar)
-                                .addGap(50, 50, 50)
-                                .addComponent(jbConfirmar)
-                                .addGap(54, 54, 54)
-                                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(169, Short.MAX_VALUE))
+                        .addGap(116, 116, 116)
+                        .addComponent(jlAviso))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(66, 66, 66)
+                            .addComponent(jbVerificar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jbConfirmar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                            .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(22, 22, 22)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cbAlumnos, 0, 369, Short.MAX_VALUE)
+                                .addComponent(cbMaterias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -5,7 +5,12 @@
  */
 package tp8.transversal.g2.vistas;
 
+import java.util.Iterator;
+import javax.swing.JOptionPane;
 import tp8.transversal.g2.clases.*;
+import tp8.transversal.g2.data.AlumnoData;
+import tp8.transversal.g2.data.CursadaData;
+import tp8.transversal.g2.data.MateriaData;
 
 /**
  *
@@ -16,8 +21,21 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
     /**
      * Creates new form ViewActualizarNota
      */
-    public ViewActualizarNota() {
+        private AlumnoData ad;
+        private MateriaData md;
+        private CursadaData cd;
+        
+    public ViewActualizarNota(AlumnoData ad,MateriaData md,CursadaData cd) {
         initComponents();
+        this.ad=ad;
+        this.md=md;
+        this.cd=cd;
+        Iterator <Alumno> it=ad.obtenerAlumnos().iterator();
+        cbAlumnos.addItem(null);
+        while(it.hasNext()){
+            Alumno a1=it.next();
+            cbAlumnos.addItem(a1);
+        }
     }
 
     /**
@@ -39,7 +57,8 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jtNota = new javax.swing.JTextField();
-        jbConfirmar1 = new javax.swing.JButton();
+        jbLimpiar = new javax.swing.JButton();
+        jbVer = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -55,6 +74,11 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
 
         jbConfirmar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbConfirmar.setText("Confirmar");
+        jbConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConfirmarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jbSalir.setText("Salir");
@@ -70,9 +94,25 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
         jLabel3.setText("Ingrese la nota");
 
-        jbConfirmar1.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
-        jbConfirmar1.setText("Limpiar");
-        jbConfirmar1.setPreferredSize(new java.awt.Dimension(101, 38));
+        jbLimpiar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
+        jbLimpiar.setText("Limpiar");
+        jbLimpiar.setPreferredSize(new java.awt.Dimension(101, 38));
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
+
+        jbVer.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
+        jbVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/recargar.png"))); // NOI18N
+        jbVer.setMaximumSize(new java.awt.Dimension(86, 38));
+        jbVer.setMinimumSize(new java.awt.Dimension(101, 38));
+        jbVer.setPreferredSize(new java.awt.Dimension(101, 38));
+        jbVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,28 +127,33 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbMaterias, 0, 269, Short.MAX_VALUE)
-                            .addComponent(cbAlumnos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtNota))
-                        .addContainerGap(27, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbMaterias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jtNota)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbVer, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 5, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jbConfirmar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))))
+                        .addGap(16, 16, 16)))
+                .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jbVer, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -116,11 +161,11 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbConfirmar)
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbConfirmar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
         );
 
@@ -142,6 +187,63 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        jbConfirmar.setEnabled(false);
+        cbMaterias.removeAllItems();
+        cbAlumnos.removeAllItems();
+        Iterator <Alumno> it=ad.obtenerAlumnos().iterator();
+        Iterator <Materia> it2=md.obtenerMaterias().iterator();
+        cbAlumnos.addItem(null);
+        jtNota.setText("");
+        while(it.hasNext()){
+            Alumno a1=it.next();
+            if(a1.isActivo())
+                cbAlumnos.addItem(a1);
+        }
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
+        float nota=0; 
+        try{
+            nota = Float.valueOf(jtNota.getText());
+            if(nota<0||nota>10){
+                JOptionPane.showMessageDialog(null,"Ingrese un número entre 1 y 10"); 
+                nota=0;
+            }
+        }catch(Exception ex){
+                JOptionPane.showMessageDialog(null,"Por favor ingrese un valor entre 1 y 10");
+        }
+        Alumno a = (Alumno)cbAlumnos.getSelectedItem();
+        Materia m = (Materia)cbMaterias.getSelectedItem();
+        Cursada c = new Cursada();
+        Iterator <Cursada> itC = cd.obtenerCursadasxAlumno(a.getId_alumno()).iterator();
+        while (itC.hasNext()){
+            c = itC.next();   
+            if(m.getId_materia()==c.getMateria().getId_materia()){
+                cd.actualizarNotaCursada(a.getId_alumno(), m.getId_materia(), nota);
+                if(nota!=0){
+                    JOptionPane.showMessageDialog(null,"Nota añadida exitosamente");
+                    this.jbLimpiarActionPerformed(evt);
+                }
+                break;
+            }
+        }
+    }//GEN-LAST:event_jbConfirmarActionPerformed
+
+    private void jbVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerActionPerformed
+        if(cbMaterias.getSelectedItem()!=null){
+            cbMaterias.removeAllItems();
+            Alumno a = (Alumno)cbAlumnos.getSelectedItem();
+            Iterator <Cursada> itC = cd.obtenerCursadasxAlumno(a.getId_alumno()).iterator();
+            cbMaterias.addItem(null);
+            while(itC.hasNext()){
+                Cursada c1=itC.next();
+                cbMaterias.addItem(c1.getMateria());
+                jbConfirmar.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jbVerActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -152,8 +254,9 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbConfirmar;
-    private javax.swing.JButton jbConfirmar1;
+    private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JButton jbVer;
     private javax.swing.JTextField jtNota;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,17 +14,17 @@ public class Cursada {
     private int id_cursada;
     private Alumno alumno;
     private Materia materia;
-    private int nota;
+    private float nota;
 
     public Cursada() {
     }
-    public Cursada(int id_cursada, Alumno alumno, Materia materia, int nota) {
+    public Cursada(int id_cursada, Alumno alumno, Materia materia, float nota) {
         this.id_cursada = id_cursada;
         this.alumno = alumno;
         this.materia = materia;
         this.nota = nota;
     }
-    public Cursada(Alumno alumno, Materia materia, int nota) {
+    public Cursada(Alumno alumno, Materia materia, float nota) {
         this.alumno = alumno;
         this.materia = materia;
         this.nota = nota;
@@ -39,7 +39,7 @@ public class Cursada {
     public Materia getMateria() {
         return materia;
     }
-    public int getNota() {
+    public float getNota() {
         return nota;
     }
     
@@ -52,7 +52,7 @@ public class Cursada {
     public void setMateria(Materia materia) {
         this.materia = materia;
     }
-    public void setNota(int nota) {
+    public void setNota(float nota) {
         this.nota = nota;
     }
     
