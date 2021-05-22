@@ -26,7 +26,6 @@ private CursadaData cd;
      */
     public ViewInscripcion(AlumnoData ad,MateriaData md,CursadaData cd) {
         initComponents();
-        jlAviso.setVisible(false);
         this.ad=ad;
         this.md=md;
         this.cd=cd;
@@ -64,7 +63,6 @@ private CursadaData cd;
         jbConfirmar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jbVerificar = new javax.swing.JButton();
-        jlAviso = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -111,36 +109,28 @@ private CursadaData cd;
             }
         });
 
-        jlAviso.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-        jlAviso.setForeground(new java.awt.Color(204, 0, 0));
-        jlAviso.setText("*El alumno ya se encuentra inscripto en esta materia*");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jlAviso))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(66, 66, 66)
-                            .addComponent(jbVerificar)
-                            .addGap(18, 18, 18)
-                            .addComponent(jbConfirmar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
-                            .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cbAlumnos, 0, 369, Short.MAX_VALUE)
-                                .addComponent(cbMaterias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(66, 66, 66)
+                        .addComponent(jbVerificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbAlumnos, 0, 369, Short.MAX_VALUE)
+                            .addComponent(cbMaterias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -154,9 +144,7 @@ private CursadaData cd;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jlAviso)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbConfirmar)
@@ -196,19 +184,24 @@ private CursadaData cd;
     }//GEN-LAST:event_jbConfirmarActionPerformed
 
     private void jbVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerificarActionPerformed
-    Alumno a1=(Alumno)cbAlumnos.getSelectedItem();
-    Materia m1=(Materia)cbMaterias.getSelectedItem();
-    boolean ok=false;
-    if(a1!=null&m1!=null){
-    List <Materia> lm=cd.obtenerMateriasCursadas(a1.getId_alumno());
-    for(Materia m:lm){
-        System.out.print(m.getId_materia()+" ");
-        System.out.println(m1.getId_materia());
-    if(m.getId_materia()==m1.getId_materia()){ok=true;}
-    }
-    System.out.println(ok);
-    if(!ok){jbConfirmar.setEnabled(true);}
-    if(ok){JOptionPane.showMessageDialog(this,"No es posible, alumno ya se encuentra inscripto a la materia");jbConfirmar.setEnabled(false);}
+    Alumno a1 = (Alumno)cbAlumnos.getSelectedItem();
+    Materia m1 = (Materia)cbMaterias.getSelectedItem();
+    boolean ok = false;
+    if(a1!=null && m1!=null){
+        List <Materia> lm=cd.obtenerMateriasCursadas(a1.getId_alumno());
+        for(Materia m:lm){
+            System.out.print(m.getId_materia()+" ");
+            System.out.println(m1.getId_materia());
+        if(m.getId_materia() == m1.getId_materia())
+            ok=true;
+        }
+        System.out.println(ok);
+        if(!ok)
+            jbConfirmar.setEnabled(true);
+        else{
+            JOptionPane.showMessageDialog(this,"No es posible, alumno ya se encuentra inscripto a la materia");
+            jbConfirmar.setEnabled(false);
+        }
     }
     // TODO add your handling code here:
     }//GEN-LAST:event_jbVerificarActionPerformed
@@ -224,6 +217,5 @@ private CursadaData cd;
     private javax.swing.JButton jbConfirmar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JButton jbVerificar;
-    private javax.swing.JLabel jlAviso;
     // End of variables declaration//GEN-END:variables
 }
