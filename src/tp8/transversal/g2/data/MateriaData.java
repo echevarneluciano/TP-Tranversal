@@ -32,12 +32,13 @@ public class MateriaData {
     }
     
     public void ingresarMateria(Materia ma){
-        String sql="INSERT INTO materia (nombre,anio,activo) VALUES (?,?,?)";       
+        String sql="INSERT INTO materia (idMateria,nombre,anio,activo) VALUES (?,?,?,?)";       
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, ma.getNombre());
-            ps.setInt(2, ma.getAnio());
-            ps.setBoolean(3, ma.isEstado());
+            ps.setInt(1,ma.getId_materia());
+            ps.setString(2, ma.getNombre());
+            ps.setInt(3, ma.getAnio());
+            ps.setBoolean(4, ma.isEstado());
             ps.executeUpdate();
             ResultSet rs=ps.getGeneratedKeys();
             if(rs.next()){
@@ -45,7 +46,7 @@ public class MateriaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error al ingresar nueva materia en la base de datos");
         }
     }
     public void modificarEstado (int id){
@@ -58,20 +59,23 @@ public class MateriaData {
             ps.executeUpdate();
             ps.close();   
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error al modificar el estado de la materia en la base de datos.");
         }
     }
     public void actualizarMateria (Materia ma){
-        String sql="UPDATE `materia` SET `nombre`=?,`anio`=? WHERE `idMateria`=?";
+        String sql="UPDATE materia SET nombre=?,anio=? WHERE idMateria=?";
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ma.getNombre());
             ps.setInt(2,ma.getAnio());
             ps.setInt(3,ma.getId_materia());
             ps.executeUpdate();
+            ResultSet rs=ps.getGeneratedKeys();
+            if(rs.next())
+                ma.setId_materia(rs.getInt(1));
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error al actualizar la materia en la base de datos");
         }
     }
     
@@ -89,7 +93,7 @@ public class MateriaData {
                 mat.setAnio(rs.getInt("anio"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error al buscar la materia en la base de datos");
         }
         return mat;
     }
@@ -109,7 +113,7 @@ public class MateriaData {
                 materias.add(mat);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error de conexion.");
+            JOptionPane.showMessageDialog(null,"Error al obtener el listado de materias de la base de datos");
         }
         return materias;
     }

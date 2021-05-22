@@ -20,7 +20,7 @@ import tp8.transversal.g2.data.AlumnoData;
  * @author Guido Caballero
  */
 public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
-private AlumnoData ad;
+    private AlumnoData ad;
 
 
     /**
@@ -228,8 +228,8 @@ private AlumnoData ad;
     if(legajo==0)
         JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros");
     else {
-        Iterator it=ad.obtenerAlumnos().iterator();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        Iterator it=ad.obtenerAlumnos().iterator();
         while(it.hasNext()){
             Alumno a1=(Alumno)it.next();
             if(legajo==a1.getLegajo()){
@@ -239,7 +239,6 @@ private AlumnoData ad;
                 ok=true;
             }
         }
-            System.out.println(ok);
             if(ok==false){
                 this.jbLimpiarActionPerformed(evt);
                 jtApellido.setEditable(true);
@@ -262,7 +261,6 @@ private AlumnoData ad;
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         int legajo=0;
-        boolean ok=false;
         try{
             legajo=Integer.parseInt(jtLegajo.getText());
         }
@@ -272,7 +270,6 @@ private AlumnoData ad;
         String apellido=jtApellido.getText();
         String nombre=jtNombre.getText();
         Date fecha=jDateChooser1.getDate();
-        System.out.println(fecha);
         if(fecha==null||legajo==0||apellido==null||nombre==null)
             JOptionPane.showMessageDialog(this,"Rellene todos los campos, apellido, nombre, legajo y fecha");
         else{

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package tp8.transversal.g2.vistas;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
 import tp8.transversal.g2.clases.Materia;
 import tp8.transversal.g2.data.MateriaData;
@@ -250,9 +251,7 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
                 jtNombre.setEditable(true);
                 jtAnio.setEditable(true);
                 cbEstado.setEnabled(true);
-                
             }
-            
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -266,35 +265,45 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         Materia m = new Materia();
         m.setId_materia(0);
+        int id = 0, anio = 0;
+        String nomb = "";
         boolean exc=false, MateriaNueva=true;
-        
         try{    
-            m = md.buscarMateria(Integer.valueOf(jtId.getText()));
-            m.setAnio(Integer.valueOf(jtAnio.getText()));
-            m.setNombre(jtNombre.getText());
+            id = Integer.valueOf(jtId.getText());
+            nomb = jtNombre.getText();
+            anio = Integer.valueOf(jtAnio.getText());
             exc = false;
         }catch(Exception ex){
             exc = true;
-        }
+        }        
         if (!exc){
+            Iterator <Materia> itM = md.obtenerMaterias().iterator();
+            while (itM.hasNext()){
+                Materia m1 = itM.next();
+                if (m1.getId_materia() == id){    
+                    m.setNombre(nomb);
+                    m.setAnio(anio);
+                    if(cbEstado.isSelected())
+                        m.setEstado(true);
+                    else
+                        m.setEstado(false);
+                    md.actualizarMateria(m);
+                    MateriaNueva = false;
+                    break;
+                }
+            }
             if (MateriaNueva){
-                m.setId_materia(Integer.valueOf(jtId.getText()));
+                m.setNombre(nomb);
+                m.setAnio(anio);
+                m.setId_materia(id);
                 if(cbEstado.isSelected())
-                    m.setEstado(true);
-                else
-                    m.setEstado(false);
+                        m.setEstado(true);
+                    else
+                        m.setEstado(false);
                 md.ingresarMateria(m);
-            }else{
-                if(cbEstado.isSelected() && !m.isEstado())
-                    md.modificarEstado(m.getId_materia());    
-                else
-                if (!cbEstado.isSelected() && m.isEstado())
-                    md.modificarEstado(m.getId_materia());    
-                md.actualizarMateria(m);
             }
             JOptionPane.showMessageDialog(null,"Materia guardada con éxito");
-        }
-        else
+        }else
             JOptionPane.showMessageDialog(null,"Alguno de los campos no cumple con el tipo de dato o se encuentra vacio.");
         jbLimpiarActionPerformed(evt);
     }//GEN-LAST:event_jbGuardarActionPerformed

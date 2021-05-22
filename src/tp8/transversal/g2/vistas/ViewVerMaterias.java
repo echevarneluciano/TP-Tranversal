@@ -249,9 +249,13 @@ public class ViewVerMaterias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        jtMaterias.removeRowSelectionInterval(0, jtMaterias.getComponentCount()-1);
+        int x = jtMaterias.getRowCount();
         dtm = (DefaultTableModel) jtMaterias.getModel();
-        jtMaterias.removeAll();
+        
+        for (int i = 0;x>i; i++) {
+                dtm.removeRow(0);
+            }
+        jtMaterias.setModel(dtm);
         if(!cbVerInactivos.isSelected()){
             for (Materia m : md.obtenerMaterias()){
                 if(m.isEstado()){
