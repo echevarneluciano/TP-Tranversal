@@ -5,17 +5,24 @@
  */
 package tp8.transversal.g2.vistas;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import tp8.transversal.g2.clases.Alumno;
+import tp8.transversal.g2.data.AlumnoData;
+
 /**
  *
  * @author Guido Caballero
  */
 public class ViewVerAlumnos extends javax.swing.JInternalFrame {
-
+    AlumnoData ad;
+    private DefaultTableModel dtm;
     /**
      * Creates new form ViewVerAlumnos
      */
-    public ViewVerAlumnos() {
+    public ViewVerAlumnos(AlumnoData ad) {
         initComponents();
+        mostrarAlumnos(ad);
     }
 
     /**
@@ -209,13 +216,76 @@ public class ViewVerAlumnos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
+        int legajo = 0;
+        jtFecha.setText("");
+        jtApellido.setText("");
+        jtNombre.setText("");
+        jtEstado.setText("");
+        try{
+            legajo = Integer.valueOf(jtLegajo.getText());
+            if(legajo<=0)
+            JOptionPane.showMessageDialog(null,"El campo Legajo no puede contener un numero negativo o ser igual a cero");
+        else {
+            Alumno a = new Alumno();
+            for(Alumno alm : ad.obtenerAlumnos()){
+                if(alm.getLegajo()== legajo){
+                    jtFecha.setText(alm.getFechaNac()+"");
+                    jtNombre.setText(alm.getNombre());
+                    jtApellido.setText(alm.getApellido());
+                    if(alm.isActivo())
+                        jtEstado.setText("Activo");
+                    else
+                        jtEstado.setText("Inactivo");
+                }
+            }
+            if (jtFecha.getText().equals("") && jtNombre.getText().equals("") && jtApellido.getText().equals("")){
+                JOptionPane.showMessageDialog(null,"Hmmm... Parece que el Legajo que has buscado no existe. Prueba otro diferente");
+            }
+        }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"El campo Legajo solo admite caracteres numéricos");
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        // TODO add your handling code here:
+
+        mostrarAlumnos(ad);
     }//GEN-LAST:event_jbActualizarActionPerformed
 
+    
+    private void mostrarAlumnos(AlumnoData ad){
+        this.ad = ad;
+        dtm = (DefaultTableModel) jtAlumnos.getModel();
+        dtm.setRowCount(0);
+        if (!cbVerInactivos.isSelected()){ 
+        for (Alumno a : ad.obtenerAlumnos()){
+                if(a.isActivo()){
+                String []row = new String[4];
+                row[0] = a.getLegajo()+"";
+                row[1] = a.getNombre();
+                row[2] = a.getApellido();
+                row[3]= "Activa";
+                dtm.addRow(row);
+                jtAlumnos.setModel(dtm);
+                }
+                
+            }
+        } else { 
+            for (Alumno a : ad.obtenerAlumnos()){
+                String []row = new String[4];
+                row[0] = a.getLegajo()+"";
+                row[1] = a.getNombre();
+                row[2] = a.getApellido()+"º";
+                if(a.isActivo())
+                    row[3]= "Activa";
+                else
+                    row[3]= "Inactiva";
+                dtm.addRow(row);
+                jtAlumnos.setModel(dtm);
+            }
+        }
+    }
+       
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox cbVerInactivos;
