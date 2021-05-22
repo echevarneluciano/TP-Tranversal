@@ -192,7 +192,6 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
         cbMaterias.removeAllItems();
         cbAlumnos.removeAllItems();
         Iterator <Alumno> it=ad.obtenerAlumnos().iterator();
-        Iterator <Materia> it2=md.obtenerMaterias().iterator();
         cbAlumnos.addItem(null);
         jtNota.setText("");
         while(it.hasNext()){
@@ -204,6 +203,7 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
 
     private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
         float nota=0; 
+        Materia m;
         try{
             nota = Float.valueOf(jtNota.getText());
             if(nota<0||nota>10){
@@ -214,24 +214,27 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null,"Por favor ingrese un valor entre 1 y 10");
         }
         Alumno a = (Alumno)cbAlumnos.getSelectedItem();
-        Materia m = (Materia)cbMaterias.getSelectedItem();
-        Cursada c = new Cursada();
-        Iterator <Cursada> itC = cd.obtenerCursadasxAlumno(a.getId_alumno()).iterator();
-        while (itC.hasNext()){
-            c = itC.next();   
-            if(m.getId_materia()==c.getMateria().getId_materia()){
-                cd.actualizarNotaCursada(a.getId_alumno(), m.getId_materia(), nota);
-                if(nota!=0){
-                    JOptionPane.showMessageDialog(null,"Nota añadida exitosamente");
-                    this.jbLimpiarActionPerformed(evt);
+        if(cbMaterias.getSelectedItem()!= null){
+            m = (Materia)cbMaterias.getSelectedItem();
+            Cursada c = new Cursada();
+            Iterator <Cursada> itC = cd.obtenerCursadasxAlumno(a.getId_alumno()).iterator();
+            while (itC.hasNext()){
+                c = itC.next();   
+                if(m.getId_materia()==c.getMateria().getId_materia()){
+                    cd.actualizarNotaCursada(a.getId_alumno(), m.getId_materia(), nota);
+                    if(nota!=0){
+                        JOptionPane.showMessageDialog(null,"Nota añadida exitosamente");
+                        this.jbLimpiarActionPerformed(evt);
+                    }
+                    break;
                 }
-                break;
-            }
-        }
+            }    
+        }else
+            JOptionPane.showMessageDialog(null,"Por favor seleccione una materia del conjunto");
     }//GEN-LAST:event_jbConfirmarActionPerformed
 
     private void jbVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerActionPerformed
-        if(cbMaterias.getSelectedItem()!=null){
+        if(cbAlumnos.getSelectedItem()!=null){
             cbMaterias.removeAllItems();
             Alumno a = (Alumno)cbAlumnos.getSelectedItem();
             Iterator <Cursada> itC = cd.obtenerCursadasxAlumno(a.getId_alumno()).iterator();
