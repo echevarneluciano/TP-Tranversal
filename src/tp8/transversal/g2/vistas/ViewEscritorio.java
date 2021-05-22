@@ -207,7 +207,7 @@ private Conexion con;
     private void jbVerMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerMateriasActionPerformed
         jpEscritorio.removeAll();
         jpEscritorio.repaint();
-        ViewVerMaterias view = new ViewVerMaterias();
+        ViewVerMaterias view = new ViewVerMaterias(md);
         jpEscritorio.add(view);
         view.setVisible(true);
     }//GEN-LAST:event_jbVerMateriasActionPerformed

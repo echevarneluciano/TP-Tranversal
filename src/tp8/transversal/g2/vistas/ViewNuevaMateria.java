@@ -245,11 +245,14 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
             }
             if (!existe){
                 JOptionPane.showMessageDialog(null, id + ", se encuentra disponible. Complete los campos");
+                jbGuardar.setEnabled(true);
                 jtId.setEditable(false);
                 jtNombre.setEditable(true);
                 jtAnio.setEditable(true);
                 cbEstado.setEnabled(true);
-            }    
+                
+            }
+            
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -263,28 +266,36 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         Materia m = new Materia();
         m.setId_materia(0);
-        boolean aux=true;
+        boolean exc=false, MateriaNueva=true;
+        
         try{    
             m = md.buscarMateria(Integer.valueOf(jtId.getText()));
             m.setAnio(Integer.valueOf(jtAnio.getText()));
             m.setNombre(jtNombre.getText());
+            exc = false;
         }catch(Exception ex){
-            aux=false;
+            exc = true;
         }
-        if (aux){
-            if(cbEstado.isSelected() && !m.isEstado())
-                md.modificarEstado(m.getId_materia());
-            else
+        if (!exc){
+            if (MateriaNueva){
+                m.setId_materia(Integer.valueOf(jtId.getText()));
+                if(cbEstado.isSelected())
+                    m.setEstado(true);
+                else
+                    m.setEstado(false);
+                md.ingresarMateria(m);
+            }else{
+                if(cbEstado.isSelected() && !m.isEstado())
+                    md.modificarEstado(m.getId_materia());    
+                else
                 if (!cbEstado.isSelected() && m.isEstado())
                     md.modificarEstado(m.getId_materia());    
-            if(jbEditable.isEnabled())
                 md.actualizarMateria(m);
-            else
-                md.ingresarMateria(m);
+            }
             JOptionPane.showMessageDialog(null,"Materia guardada con éxito");
         }
         else
-            JOptionPane.showMessageDialog(null,"Alguno de los campos no cumple con el tipo de dato o se encuentran vacios.");
+            JOptionPane.showMessageDialog(null,"Alguno de los campos no cumple con el tipo de dato o se encuentra vacio.");
         jbLimpiarActionPerformed(evt);
     }//GEN-LAST:event_jbGuardarActionPerformed
 
