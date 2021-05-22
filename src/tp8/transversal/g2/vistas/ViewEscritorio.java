@@ -199,7 +199,7 @@ private Conexion con;
     private void jbVerAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerAlumnoActionPerformed
         jpEscritorio.removeAll();
         jpEscritorio.repaint();
-        ViewVerAlumnos view = new ViewVerAlumnos();
+        ViewVerAlumnos view = new ViewVerAlumnos(ad);
         jpEscritorio.add(view);
         view.setVisible(true);
     }//GEN-LAST:event_jbVerAlumnoActionPerformed
