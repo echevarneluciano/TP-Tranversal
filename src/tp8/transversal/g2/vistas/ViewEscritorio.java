@@ -183,7 +183,7 @@ private Conexion con;
     private void jbNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoAlumnoActionPerformed
         jpEscritorio.removeAll();
         jpEscritorio.repaint();
-        ViewNuevoAlumno view = new ViewNuevoAlumno(ad,md,cd);
+        ViewNuevoAlumno view = new ViewNuevoAlumno(ad);
         jpEscritorio.add(view);
         view.setVisible(true);
     }//GEN-LAST:event_jbNuevoAlumnoActionPerformed
@@ -191,7 +191,7 @@ private Conexion con;
     private void jbNuevaMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevaMateriaActionPerformed
         jpEscritorio.removeAll();
         jpEscritorio.repaint();
-        ViewNuevaMateria view = new ViewNuevaMateria();
+        ViewNuevaMateria view = new ViewNuevaMateria(md);
         jpEscritorio.add(view);
         view.setVisible(true);
     }//GEN-LAST:event_jbNuevaMateriaActionPerformed

@@ -13,8 +13,7 @@ import java.util.Iterator;
 import javax.swing.JOptionPane;
 import tp8.transversal.g2.clases.Alumno;
 import tp8.transversal.g2.data.AlumnoData;
-import tp8.transversal.g2.data.CursadaData;
-import tp8.transversal.g2.data.MateriaData;
+
 
 /**
  *
@@ -22,16 +21,16 @@ import tp8.transversal.g2.data.MateriaData;
  */
 public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
 private AlumnoData ad;
-private MateriaData md;
-private CursadaData cd;
+
+
     /**
      * Creates new form ViewNuevoAlumno
      */
-    public ViewNuevoAlumno(AlumnoData ad,MateriaData md,CursadaData cd) {
+    public ViewNuevoAlumno(AlumnoData ad) {
         initComponents();
         this.ad=ad;
-        this.md=md;
-        this.cd=cd;
+
+
     }
 
     /**
@@ -130,14 +129,6 @@ private CursadaData cd;
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jbGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbLimpiar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbSalir)
-                        .addGap(173, 173, 173))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
@@ -159,7 +150,15 @@ private CursadaData cd;
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(12, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jbLimpiar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbSalir)
+                        .addGap(104, 104, 104))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,8 +187,8 @@ private CursadaData cd;
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbGuardar)
                     .addComponent(jbLimpiar)
+                    .addComponent(jbGuardar)
                     .addComponent(jbSalir))
                 .addGap(28, 28, 28))
         );
@@ -200,7 +199,7 @@ private CursadaData cd;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,57 +220,69 @@ private CursadaData cd;
     int legajo=0;
     boolean ok=false;
     try{
-    legajo=Integer.parseInt(jtLegajo.getText());
+        legajo=Integer.parseInt(jtLegajo.getText());
     }
     catch(NumberFormatException ex){
-    JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros");
+        JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros");
     }
-    if(legajo==0){JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros") ;}else {
-    Iterator it=ad.obtenerAlumnos().iterator();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
-    while(it.hasNext()){
-        Alumno a1=(Alumno)it.next();
-        if(legajo==a1.getLegajo()){jtApellido.setText(a1.getApellido());jtNombre.setText(a1.getNombre());jtFecha.setText(a1.getFechaNac().format(formatter));ok=true;}
-    }
-        System.out.println(ok);
-        if(ok==false){this.jbLimpiarActionPerformed(evt);jtApellido.setEditable(true);
-        jtNombre.setEditable(true);jtLegajo.setText(String.valueOf(legajo));
-        JOptionPane.showMessageDialog(this,legajo+" ,esta disponible para usar");jbGuardar.setEnabled(true);}else jbGuardar.setEnabled(false);
-    }
-        // TODO add your handling code here:
+    if(legajo==0)
+        JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros");
+    else {
+        Iterator it=ad.obtenerAlumnos().iterator();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        while(it.hasNext()){
+            Alumno a1=(Alumno)it.next();
+            if(legajo==a1.getLegajo()){
+                jtApellido.setText(a1.getApellido());
+                jtNombre.setText(a1.getNombre());
+                jtFecha.setText(a1.getFechaNac().format(formatter));
+                ok=true;
+            }
+        }
+            System.out.println(ok);
+            if(ok==false){
+                this.jbLimpiarActionPerformed(evt);
+                jtApellido.setEditable(true);
+                jtNombre.setEditable(true);
+                jtLegajo.setText(String.valueOf(legajo));
+                JOptionPane.showMessageDialog(this,legajo+" ,esta disponible para usar");
+                jbGuardar.setEnabled(true);
+            }else
+                jbGuardar.setEnabled(false);
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
-    jtLegajo.setText("");
-    jtApellido.setText("");
-    jtNombre.setText("");
-    jtFecha.setText("");
-    jbGuardar.setEnabled(false);
-        // TODO add your handling code here:
+        jtLegajo.setText("");
+        jtApellido.setText("");
+        jtNombre.setText("");
+        jtFecha.setText("");
+        jbGuardar.setEnabled(false);
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-    int legajo=0;
-    boolean ok=false;
-    try{
-    legajo=Integer.parseInt(jtLegajo.getText());
-    }
-    catch(NumberFormatException ex){
-    JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros");
-    }
-    String apellido=jtApellido.getText();
-    String nombre=jtNombre.getText();
-    Date fecha=jDateChooser1.getDate();
-    System.out.println(fecha);
-    if(fecha==null||legajo==0||apellido==null||nombre==null){JOptionPane.showMessageDialog(this,"Rellene todos los campos, apellido, nombre, legajo y fecha");}
-    else{
-    LocalDate fe=fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    System.out.println(fe);
-    Alumno a1=new Alumno(nombre,apellido,fe,legajo,true);
-    ad.ingresarAlumno(a1);
-    jbGuardar.setEnabled(false);this.jbLimpiarActionPerformed(evt);}
-    this.jbLimpiarActionPerformed(evt);
-        // TODO add your handling code here:
+        int legajo=0;
+        boolean ok=false;
+        try{
+            legajo=Integer.parseInt(jtLegajo.getText());
+        }
+        catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this,"Volver a cargar, en campo legajo ingresar solo numeros");
+        }
+        String apellido=jtApellido.getText();
+        String nombre=jtNombre.getText();
+        Date fecha=jDateChooser1.getDate();
+        System.out.println(fecha);
+        if(fecha==null||legajo==0||apellido==null||nombre==null)
+            JOptionPane.showMessageDialog(this,"Rellene todos los campos, apellido, nombre, legajo y fecha");
+        else{
+            LocalDate fe=fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            System.out.println(fe);
+            Alumno a1=new Alumno(nombre,apellido,fe,legajo,true);
+            ad.ingresarAlumno(a1);
+            jbGuardar.setEnabled(false);this.jbLimpiarActionPerformed(evt);
+        }
+        this.jbLimpiarActionPerformed(evt);
     }//GEN-LAST:event_jbGuardarActionPerformed
 
 
