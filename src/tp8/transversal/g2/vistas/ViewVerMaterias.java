@@ -228,11 +228,9 @@ public class ViewVerMaterias extends javax.swing.JInternalFrame {
         try{
             id = Integer.valueOf(jtId.getText());
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null,"El campo ID solo admite caracteres numéricos");
+            JOptionPane.showMessageDialog(null,"El campo ID solo admite caracteres numéricos mayores a cero");
         }
-        if(id<=0)
-            JOptionPane.showMessageDialog(null,"El campo ID no puede contener un numero negativo o ser igual a cero");
-        else {
+        if(id>0){
             Materia m = new Materia();
             for(Materia mAux : md.obtenerMaterias()){
                 if(mAux.getId_materia()== id){

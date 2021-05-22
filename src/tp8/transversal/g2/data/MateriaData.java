@@ -63,7 +63,7 @@ public class MateriaData {
         }
     }
     public void actualizarMateria (Materia ma){
-        String sql="UPDATE materia SET nombre=?,anio=? WHERE idMateria=?";
+        String sql="UPDATE materia SET nombre=?, anio=? WHERE idMateria=?";
         try {
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ma.getNombre());
@@ -116,5 +116,20 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null,"Error al obtener el listado de materias de la base de datos");
         }
         return materias;
+    }
+    public boolean materiaEsta(int id){
+        boolean ret=false;
+        String sql="SELECT * FROM `materia` WHERE `idMateria`=?";
+        try {
+            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ResultSet rs= ps.executeQuery();
+            if(rs.next()){
+                ret = true;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al buscar la materia en la base de datos");
+        }
+    return ret;
     }
 }

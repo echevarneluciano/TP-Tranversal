@@ -244,7 +244,7 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
                 jtApellido.setEditable(true);
                 jtNombre.setEditable(true);
                 jtLegajo.setText(String.valueOf(legajo));
-                JOptionPane.showMessageDialog(this,legajo+" ,esta disponible para usar");
+                JOptionPane.showMessageDialog(this,legajo+" ,está disponible para usar");
                 jbGuardar.setEnabled(true);
             }else
                 jbGuardar.setEnabled(false);

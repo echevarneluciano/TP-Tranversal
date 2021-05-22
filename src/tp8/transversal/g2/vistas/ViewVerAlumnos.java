@@ -226,7 +226,6 @@ public class ViewVerAlumnos extends javax.swing.JInternalFrame {
             if(legajo<=0)
             JOptionPane.showMessageDialog(null,"El campo Legajo no puede contener un numero negativo o ser igual a cero");
         else {
-            Alumno a = new Alumno();
             for(Alumno alm : ad.obtenerAlumnos()){
                 if(alm.getLegajo()== legajo){
                     jtFecha.setText(alm.getFechaNac()+"");
@@ -264,7 +263,7 @@ public class ViewVerAlumnos extends javax.swing.JInternalFrame {
                 row[0] = a.getLegajo()+"";
                 row[1] = a.getNombre();
                 row[2] = a.getApellido();
-                row[3]= "Activa";
+                row[3]= "Activo";
                 dtm.addRow(row);
                 jtAlumnos.setModel(dtm);
                 }
@@ -275,11 +274,11 @@ public class ViewVerAlumnos extends javax.swing.JInternalFrame {
                 String []row = new String[4];
                 row[0] = a.getLegajo()+"";
                 row[1] = a.getNombre();
-                row[2] = a.getApellido()+"º";
+                row[2] = a.getApellido()+"";
                 if(a.isActivo())
-                    row[3]= "Activa";
+                    row[3]= "Activo";
                 else
-                    row[3]= "Inactiva";
+                    row[3]= "Inactivo";
                 dtm.addRow(row);
                 jtAlumnos.setModel(dtm);
             }
