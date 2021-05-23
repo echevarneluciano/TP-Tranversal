@@ -266,13 +266,23 @@ private DefaultTableModel dtm;
             }
         }else {
                 for (Alumno a : cd.buscarAlumnoPorMateriaCursada(idMateria)){
+                    if(!a.isActivo()){
                     String []row = new String[4];
                     row[0] = Integer.toString(a.getLegajo());
                     row[1] = a.getApellido()+" "+a.getNombre();
                     row[2] = "no activo";
                     row[3]=Integer.toString(cd.buscarNotaCursada(a.getId_alumno(), idMateria));
                     dtm.addRow(row);
+                    jtInscriptos.setModel(dtm);}
+                    else{
+                    String []row = new String[4];
+                    row[0] = Integer.toString(a.getLegajo());
+                    row[1] = a.getApellido()+" "+a.getNombre();
+                    row[2] = "activo";
+                    row[3]=Integer.toString(cd.buscarNotaCursada(a.getId_alumno(), idMateria));
+                    dtm.addRow(row);
                     jtInscriptos.setModel(dtm);
+                    }
                 }
      }
     }
