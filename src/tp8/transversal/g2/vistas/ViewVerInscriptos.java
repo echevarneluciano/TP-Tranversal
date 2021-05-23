@@ -5,18 +5,30 @@
  */
 package tp8.transversal.g2.vistas;
 
+
+import java.util.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import tp8.transversal.g2.clases.*;
+import tp8.transversal.g2.data.AlumnoData;
+import tp8.transversal.g2.data.CursadaData;
+import tp8.transversal.g2.data.MateriaData;
 
 /**
  *
  * @author Guido Caballero
  */
 public class ViewVerInscriptos extends javax.swing.JInternalFrame {
-
+    CursadaData cd;
+    MateriaData md;
+    private DefaultTableModel dtm;
+    private Materia mt;
     /**
      * Creates new form ViewVerInscriptos
      */
-    public ViewVerInscriptos() {
+    public ViewVerInscriptos(CursadaData cd, MateriaData md) {
+        this.cd = cd;
+        this.md = md;
         initComponents();
     }
 
@@ -70,7 +82,7 @@ public class ViewVerInscriptos extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -211,15 +223,78 @@ public class ViewVerInscriptos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbVerInactivosActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        // TODO add your handling code here:
+        obtenerAlumnosNotas(mt);
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-       
+        int materiaId = 0;
+        jtAnio.setText("");
+        jtNombre.setText("");
+        jtEstado.setText("");
+        dtm = (DefaultTableModel) jtInscriptos.getModel();
+        dtm.setRowCount(0);
+        try{
+            materiaId = Integer.valueOf(jtId.getText());
+            if(materiaId<=0)
+            JOptionPane.showMessageDialog(null,"El campo ID no puede contener un numero negativo o ser igual a cero");
+        else {
+               if(md.buscarMateria(materiaId).getId_materia() == 0){
+                JOptionPane.showMessageDialog(null,"Parece que la materia que buscas no existe. Prueba otra diferente.");
+                } else { 
+                   mt = new Materia();
+                   mt = cd.buscarMateria(materiaId);
+                   if (mt.getId_materia() == 0){ 
+                       JOptionPane.showMessageDialog(null,"Parece que la materia que buscas no tiene inscriptos. Prueba otra diferente.");
+                   } else { 
+                       jtAnio.setText(mt.getAnio()+"");
+                       jtNombre.setText(mt.getNombre());
+                       if(mt.isEstado()) {
+                           jtEstado.setText("Activa"); }
+                       else{
+                           jtEstado.setText("Inactiva"); }
+                       obtenerAlumnosNotas(mt);
+                   }
+               }
+        }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"El campo ID solo admite caracteres numéricos");
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jbBuscarActionPerformed
 
-
+    private void obtenerAlumnosNotas(Materia m){ 
+        dtm = (DefaultTableModel) jtInscriptos.getModel();
+        dtm.setRowCount(0);
+        if (cbVerInactivos.isSelected()){ 
+        for (Cursada c : cd.obtenerCursadas()){                
+                if (m.getId_materia() == c.getMateria().getId_materia()){
+                    String []row = new String[4];
+                    row[0] = c.getAlumno().getLegajo()+"";
+                    row[1] = c.getAlumno().getNombre();
+                    if(c.getAlumno().isActivo())
+                      row[2]= "Activo";
+                    else
+                     row[2]= "Inactivo";
+                    row[3] = c.getNota()+"º";
+                    dtm.addRow(row);
+                    jtInscriptos.setModel(dtm);
+                }     
+        }
+        } else { 
+            for (Cursada c : cd.obtenerCursadas()){  
+                if (m.getId_materia() == c.getMateria().getId_materia() && c.getAlumno().isActivo()){
+                    String []row = new String[4];
+                    row[0] = c.getAlumno().getLegajo()+"";
+                    row[1] = c.getAlumno().getNombre();
+                    row[2]= "Activo";
+                    row[3] = c.getNota()+"º";
+                    dtm.addRow(row);
+                    jtInscriptos.setModel(dtm);
+                }
+            
+        }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox cbVerInactivos;
     private javax.swing.JLabel jLabel1;

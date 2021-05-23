@@ -223,7 +223,7 @@ private Conexion con;
     private void jbVerInscriptosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerInscriptosActionPerformed
         jpEscritorio.removeAll();
         jpEscritorio.repaint();
-        ViewVerInscriptos view = new ViewVerInscriptos();
+        ViewVerInscriptos view = new ViewVerInscriptos(cd,md);
         jpEscritorio.add(view);
         view.setVisible(true);
     }//GEN-LAST:event_jbVerInscriptosActionPerformed

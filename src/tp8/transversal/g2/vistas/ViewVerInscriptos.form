@@ -168,7 +168,7 @@
                     <Column editable="false" title="Legajo" type="java.lang.Long"/>
                     <Column editable="false" title="Alumno" type="java.lang.String"/>
                     <Column editable="false" title="Estado del Alumno" type="java.lang.String"/>
-                    <Column editable="false" title="Nota" type="java.lang.Float"/>
+                    <Column editable="false" title="Nota" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
