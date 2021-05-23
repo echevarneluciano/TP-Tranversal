@@ -210,7 +210,42 @@ public class CursadaData {
         }
         return lm;
     }
-    
-    
-
+   public List <Alumno> buscarAlumnoPorMateriaCursada(int id){
+        Alumno a;
+        ArrayList <Alumno> la = new ArrayList<>();
+        String sql="SELECT a.idAlumno, a.nombre, a.apellido, a.legajo, a.fechaNac, a.activo FROM cursada AS c, alumno as a WHERE c.idAlumno=a.idAlumno and c.idMateria=?";
+        try {
+            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ResultSet rs= ps.executeQuery();
+            while(rs.next()){
+                a=new Alumno();
+                a.setLegajo(rs.getInt("legajo"));
+                a.setEstado(rs.getBoolean("activo"));
+                a.setNombre(rs.getString("nombre"));
+                a.setApellido(rs.getString("apellido"));
+                a.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                a.setId_alumno(rs.getInt("idAlumno"));
+                la.add(a);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error de conexion metodo buscar alumno por materia cursada");
+        }
+        return la;
+    } 
+   public int buscarNotaCursada(int idA ,int idM){
+       int resul=0; 
+       String sql="SELECT `nota` FROM `cursada` WHERE idAlumno=? and idMateria=?";     
+        try {
+            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idA);
+            ps.setInt(2, idM);
+            ResultSet rs= ps.executeQuery();
+            while(rs.next()){
+            resul=rs.getInt("nota");}
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error de conexion.");
+        }
+    return resul;
+    }
 }

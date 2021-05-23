@@ -5,19 +5,34 @@
  */
 package tp8.transversal.g2.vistas;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import tp8.transversal.g2.clases.*;
+import tp8.transversal.g2.data.AlumnoData;
+import tp8.transversal.g2.data.CursadaData;
+import tp8.transversal.g2.data.MateriaData;
 
 /**
  *
  * @author Guido Caballero
  */
 public class ViewVerNotas extends javax.swing.JInternalFrame {
-
+private AlumnoData ad;
+private MateriaData md;
+private CursadaData cd;
+private DefaultTableModel dtm;
     /**
      * Creates new form ViewVerInscriptos
      */
-    public ViewVerNotas() {
+    public ViewVerNotas(AlumnoData ad,MateriaData md,CursadaData cd) {
         initComponents();
+        this.ad=ad;
+        this.md=md;
+        this.cd=cd;
+        dtm = (DefaultTableModel) jtInscriptos.getModel();
     }
 
     /**
@@ -70,7 +85,7 @@ public class ViewVerNotas extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -211,10 +226,62 @@ public class ViewVerNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbVerInactivosActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+    this.jbBuscarActionPerformed(evt);
         // TODO add your handling code here:
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+    int idMateria=0;
+        try{
+            idMateria=Integer.parseInt(jtId.getText());
+        }
+        catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this,"Volver a cargar, en campo id-materia ingresar solo numeros");
+        }
+    Materia m1=md.buscarMateria(idMateria);
+    if(m1.getId_materia()!=0&&idMateria!=0){
+    jtNombre.setText(m1.getNombre());
+    jtAnio.setText(Integer.toString(m1.getAnio()));
+    String b1=Boolean.toString(m1.isEstado());
+    if(b1=="true"){b1="activa";}else b1="no activa";
+    jtEstado.setText(b1);
+    
+    int x = jtInscriptos.getRowCount();
+    dtm = (DefaultTableModel) jtInscriptos.getModel();
+    for (int i = 0;x>i; i++) {
+        dtm.removeRow(0);}
+    jtInscriptos.setModel(dtm);
+    
+        if(!cbVerInactivos.isSelected()){
+            for (Alumno a : cd.buscarAlumnoPorMateriaCursada(idMateria)){
+                if(a.isActivo()){
+                    String []row = new String[4];
+                    row[0] = Integer.toString(a.getLegajo());
+                    row[1] = a.getApellido()+" "+a.getNombre();
+                    row[2] = "activo";
+                    row[3]=Integer.toString(cd.buscarNotaCursada(a.getId_alumno(), idMateria));
+                    dtm.addRow(row);
+                    jtInscriptos.setModel(dtm);
+                }
+            }
+        }else {
+                for (Alumno a : cd.buscarAlumnoPorMateriaCursada(idMateria)){
+                    String []row = new String[4];
+                    row[0] = Integer.toString(a.getLegajo());
+                    row[1] = a.getApellido()+" "+a.getNombre();
+                    row[2] = "no activo";
+                    row[3]=Integer.toString(cd.buscarNotaCursada(a.getId_alumno(), idMateria));
+                    dtm.addRow(row);
+                    jtInscriptos.setModel(dtm);
+                }
+     }
+    }
+    else {JOptionPane.showMessageDialog(this,"Verifique el id de materia. Materia no encontrada");
+    int x = jtInscriptos.getRowCount();
+    dtm = (DefaultTableModel) jtInscriptos.getModel();
+    for (int i = 0;x>i; i++) {
+        dtm.removeRow(0);}
+    jtInscriptos.setModel(dtm);jtNombre.setText("");jtAnio.setText("");jtEstado.setText("");}
         // TODO add your handling code here:
     }//GEN-LAST:event_jbBuscarActionPerformed
 
