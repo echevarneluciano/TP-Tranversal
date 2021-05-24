@@ -252,6 +252,9 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
                 jDateChooser1.setDate(java.sql.Date.valueOf(a1.getFechaNac()));
                 if(a1.isActivo()){
                         cbEstado.setSelected(true);}
+                else { 
+                cbEstado.setSelected(false);
+                }
                 jtApellido.setEditable(true);
                 jtNombre.setEditable(true);
                 cbEstado.setEnabled(true);
