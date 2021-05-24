@@ -239,7 +239,6 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
                 jtNombre.setEditable(true);
                 jtAnio.setEditable(true);
                 cbEstado.setEnabled(true);
-                jbLimpiarActionPerformed(evt);
             }
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
@@ -277,8 +276,7 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
                 md.actualizarMateria(m);
                 m = md.buscarMateria(id);
                 MateriaNueva = false;
-            }
-            if (MateriaNueva){
+            }else{
                 m.setNombre(nomb);
                 m.setAnio(anio);
                 m.setId_materia(id);
