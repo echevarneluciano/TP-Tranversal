@@ -225,7 +225,7 @@ public class ViewVerInscriptos extends javax.swing.JInternalFrame {
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
         
-        if(jtInscriptos.getSelectedRow()!=-1&&JOptionPane.showConfirmDialog(null, "Realmente desea borrar la cursada del alumno", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0){
+        if(cbMaterias.getSelectedItem()!=null&&jtInscriptos.getSelectedRow()!=-1&&JOptionPane.showConfirmDialog(null, "Realmente desea borrar la cursada del alumno", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0){
         int index=jtInscriptos.getSelectedRow();
         alumnoJList.get(index).getNombre();
         Materia ma=(Materia) cbMaterias.getSelectedItem();
