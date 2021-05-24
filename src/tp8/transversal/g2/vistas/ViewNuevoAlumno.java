@@ -21,7 +21,8 @@ import tp8.transversal.g2.data.AlumnoData;
  */
 public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
     private AlumnoData ad;
-
+    private boolean ok;
+    private int id;
 
     /**
      * Creates new form ViewNuevoAlumno
@@ -58,6 +59,7 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        cbEstado = new javax.swing.JCheckBox();
 
         setClosable(true);
 
@@ -121,6 +123,9 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
 
         jLabel6.setText("* Busque para ver disponibilidad");
 
+        cbEstado.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
+        cbEstado.setText(" Activado");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -149,8 +154,9 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addContainerGap(12, Short.MAX_VALUE))
+                            .addComponent(jLabel6)
+                            .addComponent(cbEstado))
+                        .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jbLimpiar)
@@ -172,19 +178,25 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
                             .addComponent(jbBuscar)
                             .addComponent(jLabel1)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(cbEstado)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtFecha)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel5))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jtFecha)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbLimpiar)
@@ -218,7 +230,7 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
     int legajo=0;
-    boolean ok=false;
+    ok=false;
     try{
         legajo=Integer.parseInt(jtLegajo.getText());
     }
@@ -233,9 +245,17 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
         while(it.hasNext()){
             Alumno a1=(Alumno)it.next();
             if(legajo==a1.getLegajo()){
+                id = a1.getId_alumno();
                 jtApellido.setText(a1.getApellido());
                 jtNombre.setText(a1.getNombre());
                 jtFecha.setText(a1.getFechaNac().format(formatter));
+                jDateChooser1.setDate(java.sql.Date.valueOf(a1.getFechaNac()));
+                if(a1.isActivo()){
+                        cbEstado.setSelected(true);}
+                jtApellido.setEditable(true);
+                jtNombre.setEditable(true);
+                cbEstado.setEnabled(true);
+                jbGuardar.setEnabled(true);
                 ok=true;
             }
         }
@@ -244,10 +264,11 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
                 jtApellido.setEditable(true);
                 jtNombre.setEditable(true);
                 jtLegajo.setText(String.valueOf(legajo));
+                cbEstado.setEnabled(true);
                 JOptionPane.showMessageDialog(this,legajo+" ,está disponible para usar");
                 jbGuardar.setEnabled(true);
-            }else
-                jbGuardar.setEnabled(false);
+            }//else
+               // jbGuardar.setEnabled(false);
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -275,8 +296,14 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
         else{
             LocalDate fe=fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             System.out.println(fe);
-            Alumno a1=new Alumno(nombre,apellido,fe,legajo,true);
-            ad.ingresarAlumno(a1);
+            //Alumno a1=new Alumno(nombre,apellido,fe,legajo,cbEstado.isSelected());
+            if (ok== false) {
+                Alumno a1=new Alumno(nombre,apellido,fe,legajo,cbEstado.isSelected());
+                ad.ingresarAlumno(a1);}
+                else {
+                Alumno a1=new Alumno(id,nombre,apellido,fe,legajo,cbEstado.isSelected());
+                ad.actualizarAlumno(a1);
+                        }
             jbGuardar.setEnabled(false);this.jbLimpiarActionPerformed(evt);
         }
         this.jbLimpiarActionPerformed(evt);
@@ -284,6 +311,7 @@ public class ViewNuevoAlumno extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox cbEstado;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
