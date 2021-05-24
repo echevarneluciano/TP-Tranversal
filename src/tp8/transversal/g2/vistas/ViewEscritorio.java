@@ -221,7 +221,7 @@ private Conexion con;
     private void jbVerNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerNotasActionPerformed
         jpEscritorio.removeAll();
         jpEscritorio.repaint();
-        ViewVerNotas view = new ViewVerNotas(ad, md, cd);
+        ViewVerNotas view = new ViewVerNotas(ad, cd);
         jpEscritorio.add(view);
         view.setVisible(true);
     }//GEN-LAST:event_jbVerNotasActionPerformed

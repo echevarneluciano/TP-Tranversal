@@ -25,7 +25,7 @@ private DefaultTableModel dtm;
     /**
      * Creates new form ViewVerInscriptos
      */
-    public ViewVerNotas(AlumnoData ad,MateriaData md,CursadaData cd) {
+    public ViewVerNotas(AlumnoData ad,CursadaData cd) {
         initComponents();
         this.cd=cd;
         this.ad = ad;
