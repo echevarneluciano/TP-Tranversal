@@ -36,6 +36,7 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
             Alumno a1=it.next();
             cbAlumnos.addItem(a1);
         }
+        cbMaterias.setEnabled(false);
     }
 
     /**
@@ -58,7 +59,7 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jtNota = new javax.swing.JTextField();
         jbLimpiar = new javax.swing.JButton();
-        jbVer = new javax.swing.JButton();
+        jbBuscar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -103,14 +104,14 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
             }
         });
 
-        jbVer.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
-        jbVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/recargar.png"))); // NOI18N
-        jbVer.setMaximumSize(new java.awt.Dimension(86, 38));
-        jbVer.setMinimumSize(new java.awt.Dimension(101, 38));
-        jbVer.setPreferredSize(new java.awt.Dimension(101, 38));
-        jbVer.addActionListener(new java.awt.event.ActionListener() {
+        jbBuscar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
+        jbBuscar.setText("Buscar");
+        jbBuscar.setMaximumSize(new java.awt.Dimension(86, 38));
+        jbBuscar.setMinimumSize(new java.awt.Dimension(101, 38));
+        jbBuscar.setPreferredSize(new java.awt.Dimension(101, 38));
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbVerActionPerformed(evt);
+                jbBuscarActionPerformed(evt);
             }
         });
 
@@ -119,54 +120,53 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(67, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbMaterias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtNota)
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbMaterias, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbVer, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 5, Short.MAX_VALUE))))
+                                .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtNota, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(101, 101, 101)
                         .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)))
-                .addGap(23, 23, 23))
+                        .addGap(41, 41, 41)))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jbVer, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                    .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbConfirmar)
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                .addGap(60, 60, 60))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -188,7 +188,6 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
-        jbConfirmar.setEnabled(false);
         cbMaterias.removeAllItems();
         cbAlumnos.removeAllItems();
         Iterator <Alumno> it=ad.obtenerAlumnos().iterator();
@@ -199,6 +198,9 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
             if(a1.isActivo())
                 cbAlumnos.addItem(a1);
         }
+        jbConfirmar.setEnabled(false);
+        cbMaterias.setEnabled(false);
+        cbAlumnos.setEnabled(true);
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
@@ -211,41 +213,45 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
                 nota=0;
             }
         }catch(Exception ex){
-                JOptionPane.showMessageDialog(null,"Por favor ingrese un valor entre 1 y 10");
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un valor entre 1 y 10");
+            this.jbLimpiarActionPerformed(evt);
         }
         Alumno a = (Alumno)cbAlumnos.getSelectedItem();
         if(cbMaterias.getSelectedItem()!= null){
-            m = (Materia)cbMaterias.getSelectedItem();
-            Cursada c = new Cursada();
-            Iterator <Cursada> itC = cd.obtenerCursadasxAlumno(a.getId_alumno()).iterator();
-            while (itC.hasNext()){
-                c = itC.next();   
-                if(m.getId_materia()==c.getMateria().getId_materia()){
+            m = (Materia)cbMaterias.getSelectedItem();           
+            if(cd.buscarNotaCursada(a.getId_alumno(), m.getId_materia())==0){
+                cd.actualizarNotaCursada(a.getId_alumno(), m.getId_materia(), nota);
+                JOptionPane.showMessageDialog(null,"La nota fue guardada exitosamente");
+            }else{
+                if(JOptionPane.showConfirmDialog(null, "El alumno ya posee una nota cargada, realmente desea actualizarla?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==0){
                     cd.actualizarNotaCursada(a.getId_alumno(), m.getId_materia(), nota);
-                    if(nota!=0){
-                        JOptionPane.showMessageDialog(null,"Nota añadida exitosamente");
-                        this.jbLimpiarActionPerformed(evt);
-                    }
-                    break;
+                    JOptionPane.showMessageDialog(null,"La nota ha sido modificada exitosamente");   
                 }
             }    
         }else
             JOptionPane.showMessageDialog(null,"Por favor seleccione una materia del conjunto");
+        this.jbLimpiarActionPerformed(evt);
     }//GEN-LAST:event_jbConfirmarActionPerformed
 
-    private void jbVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerActionPerformed
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         if(cbAlumnos.getSelectedItem()!=null){
+            cbAlumnos.setEnabled(true);
+            cbMaterias.setEnabled(true);
             cbMaterias.removeAllItems();
+            cbMaterias.addItem(null);
             Alumno a = (Alumno)cbAlumnos.getSelectedItem();
             Iterator <Cursada> itC = cd.obtenerCursadasxAlumno(a.getId_alumno()).iterator();
-            cbMaterias.addItem(null);
-            while(itC.hasNext()){
-                Cursada c1=itC.next();
-                cbMaterias.addItem(c1.getMateria());
-                jbConfirmar.setEnabled(true);
+            if(itC.hasNext()){
+                while(itC.hasNext()){
+                    Cursada c1=itC.next();
+                    cbMaterias.addItem(c1.getMateria());
+                    jbConfirmar.setEnabled(true);
+                }
+                cbAlumnos.setEnabled(false);
             }
-        }
-    }//GEN-LAST:event_jbVerActionPerformed
+        }else
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un alumno para mostrar las materias en las que se encuentra inscripto");
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -256,10 +262,10 @@ public class ViewActualizarNota extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbConfirmar;
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JButton jbVer;
     private javax.swing.JTextField jtNota;
     // End of variables declaration//GEN-END:variables
 }

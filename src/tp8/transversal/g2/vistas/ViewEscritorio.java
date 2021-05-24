@@ -59,7 +59,6 @@ private Conexion con;
         jbInscribir = new javax.swing.JMenuItem();
         jbVerInscriptos = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jbCargarNota = new javax.swing.JMenuItem();
         jbVerNotas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -142,15 +141,6 @@ private Conexion con;
         jmSistema.add(jbVerInscriptos);
         jmSistema.add(jSeparator3);
 
-        jbCargarNota.setFont(new java.awt.Font("Malgun Gothic Semilight", 1, 14)); // NOI18N
-        jbCargarNota.setText("Cargar Nota");
-        jbCargarNota.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCargarNotaActionPerformed(evt);
-            }
-        });
-        jmSistema.add(jbCargarNota);
-
         jbVerNotas.setFont(new java.awt.Font("Malgun Gothic Semilight", 1, 14)); // NOI18N
         jbVerNotas.setText("Ver Notas");
         jbVerNotas.addActionListener(new java.awt.event.ActionListener() {
@@ -228,13 +218,6 @@ private Conexion con;
         view.setVisible(true);
     }//GEN-LAST:event_jbVerInscriptosActionPerformed
 
-    private void jbCargarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarNotaActionPerformed
-        jpEscritorio.removeAll();
-        jpEscritorio.repaint();
-        ViewActualizarNota view = new ViewActualizarNota(ad, md, cd);
-        jpEscritorio.add(view);
-        view.setVisible(true);    }//GEN-LAST:event_jbCargarNotaActionPerformed
-
     private void jbVerNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerNotasActionPerformed
         jpEscritorio.removeAll();
         jpEscritorio.repaint();
@@ -283,7 +266,6 @@ private Conexion con;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private javax.swing.JMenuItem jbCargarNota;
     private javax.swing.JMenuItem jbInscribir;
     private javax.swing.JMenuItem jbNuevaMateria;
     private javax.swing.JMenuItem jbNuevoAlumno;

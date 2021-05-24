@@ -213,7 +213,6 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         int id = 0;
-        boolean existe = false;
         try{
             id = Integer.valueOf(jtId.getText());
         }catch(Exception ex){
@@ -221,19 +220,20 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
         }
         if(id>0){
             Materia m = new Materia();
-                if(md.materiaEsta(id)){
-                    jbLimpiar.setEnabled(true);
-                    m = md.buscarMateria(id);
-                    jtAnio.setText(m.getAnio()+"");
-                    jtNombre.setText(m.getNombre());
-                    jbEditable.setEnabled(true);
-                    if(m.isEstado())
-                        cbEstado.setSelected(true);
-                    existe = true;
-                    JOptionPane.showMessageDialog(null, id + " ,ya pertenece a una materia en el sistema, si desea puede editar la información");
-                }
-            if (!existe){
-                JOptionPane.showMessageDialog(null, id + " ,se encuentra disponible. Complete los campos");
+            if(md.materiaEsta(id)){
+                m = md.buscarMateria(id);
+                jtAnio.setText(m.getAnio()+"");
+                jtNombre.setText(m.getNombre());
+                jbLimpiar.setEnabled(true);
+                jbEditable.setEnabled(true);
+                jtNombre.setEditable(false);
+                jtAnio.setEditable(false);
+                cbEstado.setEnabled(false);
+                if(m.isEstado())
+                    cbEstado.setSelected(true);
+                JOptionPane.showMessageDialog(null, id + " , ya pertenece a una materia en el sistema, si desea puede editar la información");
+            }else{
+                JOptionPane.showMessageDialog(null, id + " , se encuentra disponible. Complete los campos");
                 jbGuardar.setEnabled(true);
                 jtId.setEditable(false);
                 jtNombre.setEditable(true);
@@ -255,13 +255,13 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         int id = 0, anio = 0;
         String nomb = "";
-        boolean exc=false, MateriaNueva=true;
+        boolean exc=false;
         Materia m = new Materia();
         try{    
             id = Integer.valueOf(jtId.getText());
             anio = Integer.valueOf(jtAnio.getText());
             nomb = jtNombre.getText();
-            if (nomb =="" || anio<=0 || anio>5)
+            if ("".equals(nomb) || anio<=0 || anio>5)
                 exc = true;
         }catch(Exception ex){
             exc = true;
@@ -275,7 +275,6 @@ public class ViewNuevaMateria extends javax.swing.JInternalFrame {
                     md.modificarEstado(id);
                 md.actualizarMateria(m);
                 m = md.buscarMateria(id);
-                MateriaNueva = false;
             }else{
                 m.setNombre(nomb);
                 m.setAnio(anio);

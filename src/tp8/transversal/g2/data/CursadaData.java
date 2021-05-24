@@ -152,7 +152,7 @@ public class CursadaData {
                 Materia m = buscarMateria(rs.getInt("idMateria"));
                 c.setAlumno(a);
                 c.setMateria(m);
-                c.setNota(rs.getInt("nota"));
+                c.setNota(rs.getFloat("nota"));
                 c.setId_cursada(rs.getInt("idCursada"));
                 lc.add(c);
             }
@@ -210,7 +210,7 @@ public class CursadaData {
         }
         return lm;
     }
-   public List <Alumno> buscarAlumnoPorMateriaCursada(int id){
+    public List <Alumno> buscarAlumnoPorMateriaCursada(int id){
         Alumno a;
         ArrayList <Alumno> la = new ArrayList<>();
         String sql="SELECT a.idAlumno, a.nombre, a.apellido, a.legajo, a.fechaNac, a.activo FROM cursada AS c, alumno as a WHERE c.idAlumno=a.idAlumno and c.idMateria=?";
@@ -233,7 +233,7 @@ public class CursadaData {
         }
         return la;
     } 
-   public int buscarNotaCursada(int idA ,int idM){
+    public float buscarNotaCursada(int idA ,int idM){
        int resul=0; 
        String sql="SELECT `nota` FROM `cursada` WHERE idAlumno=? and idMateria=?";     
         try {
