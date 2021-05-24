@@ -133,7 +133,7 @@ private Conexion con;
         jmSistema.add(jbInscribir);
 
         jbVerInscriptos.setFont(new java.awt.Font("Malgun Gothic Semilight", 1, 14)); // NOI18N
-        jbVerInscriptos.setText("Ver Inscriptos");
+        jbVerInscriptos.setText("Ver Inscriptos/borrar");
         jbVerInscriptos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbVerInscriptosActionPerformed(evt);
