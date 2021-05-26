@@ -15,6 +15,7 @@ import tp8.transversal.g2.data.*;
  * @author Guido Caballero
  */
 public class ViewVerMaterias extends javax.swing.JInternalFrame {
+
     MateriaData md;
     private DefaultTableModel dtm;
     /**
@@ -90,9 +91,16 @@ public class ViewVerMaterias extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jtMaterias);
@@ -229,17 +237,17 @@ public class ViewVerMaterias extends javax.swing.JInternalFrame {
         }
         if(id>0){
             Materia m = new Materia();
-            for(Materia mAux : md.obtenerMaterias()){
-                if(mAux.getId_materia()== id){
-                    m = md.buscarMateria(id);
-                    jtAnio.setText(m.getAnio()+"");
-                    jtNombre.setText(m.getNombre());
-                    if(m.isEstado())
-                        jtEstado.setText("Activa");
-                    else
-                        jtEstado.setText("Inactiva");
-                }
-            }    
+            if(md.materiaEsta(id)){
+                m = md.buscarMateria(id);
+                jtAnio.setText(m.getAnio()+"");
+                jtNombre.setText(m.getNombre());
+                if(m.isEstado())
+                    jtEstado.setText("Activa");
+                else
+                    jtEstado.setText("Inactiva");
+            }
+            else
+                JOptionPane.showMessageDialog(null, "El valor ingresado no pertenece a una materia cargada");
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
