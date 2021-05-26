@@ -84,6 +84,7 @@ public class ViewVerAlumnos extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
+        jtAlumnos.setEnabled(false);
         jScrollPane1.setViewportView(jtAlumnos);
 
         jbActualizar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N
@@ -238,7 +239,7 @@ public class ViewVerAlumnos extends javax.swing.JInternalFrame {
                 }
             }
             if (jtFecha.getText().equals("") && jtNombre.getText().equals("") && jtApellido.getText().equals("")){
-                JOptionPane.showMessageDialog(null,"Hmmm... Parece que el Legajo que has buscado no existe. Prueba otro diferente");
+                JOptionPane.showMessageDialog(null,"El Legajo que has buscado no existe. Prueba otro diferente");
             }
         }
         }catch(Exception ex){

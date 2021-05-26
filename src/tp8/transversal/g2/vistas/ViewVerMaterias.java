@@ -103,6 +103,7 @@ public class ViewVerMaterias extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtMaterias.setRowSelectionAllowed(false);
         jScrollPane1.setViewportView(jtMaterias);
 
         jbActualizar.setFont(new java.awt.Font("Malgun Gothic Semilight", 0, 16)); // NOI18N

@@ -231,6 +231,7 @@ public class ViewVerInscriptos extends javax.swing.JInternalFrame {
         Materia ma=(Materia) cbMaterias.getSelectedItem();
         cd.borrarCursadaDeUnaMateria(alumnoJList.get(index).getId_alumno(),ma.getId_materia());
         this.cbMateriasActionPerformed(evt);
+        JOptionPane.showMessageDialog(null,"Cursada borrada");
         }
     }//GEN-LAST:event_jbActualizarActionPerformed
 
